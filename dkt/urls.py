@@ -25,10 +25,12 @@ urlpatterns = [
     path('login/modify_password/', ModifyPassword),
     # live 界面
     path('live/polling_time/', PollingTime),
+    path('live/ppt_to_jpg/', PptToJpg),
     # people 界面
     path('people/get_user_info/', GetUserInfo),
     path('people/set_user_info/', SetUserInfo),
     # main 界面
     path('main/search_my_courses/', SearchMyCourses),
     path('main/search_public_courses/', SearchPublicCourses),
+    path('people/get_schedule/', GetSchedule),
 ]

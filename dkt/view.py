@@ -41,6 +41,13 @@ def PollingTime(request):
     return polling_time(request)
 
 
+@post_format
+@rest_view
+# @permission_validation
+def PptToJpg(request, post_data):
+    return ppt_to_jpg(request, post_data)
+
+
 # people 界面
 # ==========================================
 @post_format
@@ -67,3 +74,10 @@ def SearchMyCourses(request):
 @rest_view
 def SearchPublicCourses(request):
     return search_public_courses(request)
+
+
+@post_format
+@rest_view
+# @permission_validation
+def GetSchedule(request, post_data):
+    return get_schedule(request, post_data)
