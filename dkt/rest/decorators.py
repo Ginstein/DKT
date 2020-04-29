@@ -41,7 +41,7 @@ def post_format(func):
 
     def wrapper(request, *args, **kw):
         try:
-            post_data = json.loads(request.body)
+            post_data = json.loads(str(request.body, encoding='utf-8'))
         except Exception as e:
             post_data = {}
         return func(request, post_data, *args, **kw)
