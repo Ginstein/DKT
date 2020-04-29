@@ -17,8 +17,12 @@ from django.urls import path
 from dkt.view import *
 
 urlpatterns = [
+    # 测试
+    path('', Ping),
     # login 登录界面
-    path('login/ping/', Ping),
     path('login/get_access_key/', GetAccessKey),
     path('login/get_token/', GetToken),
+
+    # live 界面
+    path('live/polling_time/', PollingTime),
 ]

@@ -3,6 +3,7 @@
 视图层url调用函数必须在这
 """
 from dkt.rest.decorators import rest_view, post_format
+from dkt.service.live import *
 from dkt.service.login import *
 
 
@@ -23,4 +24,9 @@ def GetAccessKey(request):
 def GetToken(request, post_data):
     return get_token(request, post_data)
 
+
+# live 界面
 # ==========================================
+@rest_view
+def PollingTime(request):
+    return polling_time(request)

@@ -3,7 +3,7 @@ import functools
 import json
 from django.http import HttpResponse
 
-from dkt.const import *
+from dkt.const import ObjectStatus
 
 
 def rest_view(func):
@@ -18,13 +18,14 @@ def rest_view(func):
         try:
             result = dict(
                 code=200,
-                message=SUCCESS,
+                message=ObjectStatus.SUCCESS.value,
                 data=func(request, *args, **kwargs)
             )
         except Exception as e:
             result = dict(
                 code=500,
-                message=e.message
+                message=ObjectStatus.FAILED.value,
+                data=e.message
             )
         return get_json_response(request, result)
 
