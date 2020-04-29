@@ -24,7 +24,11 @@ def GetAccessKey(request):
 def GetToken(request, post_data):
     return get_token(request, post_data)
 
-
+@post_format
+@rest_view
+@permission_validation
+def ModifyPassword(request, post_data):
+    return modify_password(request, post_data)
 # live 界面
 # ==========================================
 @rest_view

@@ -4,7 +4,7 @@ import time
 from django.core.exceptions import ValidationError
 
 from dkt.database.models import USERS
-from dkt.service.common import random_str, md5_hash
+from dkt.service.common import random_str, md5_hash, str_to_int, int_to_str
 
 
 def ping(request):
@@ -55,3 +55,21 @@ def get_token(request, post_data):
     token = random_str(40)
     user.update(token=token)
     return token
+
+
+def modify_password(request, post_data):
+    """
+    修改密码
+    :param request:
+    :param post_data:
+    """
+    account = post_data.get('account')
+    token = post_data.get('token')
+    enc_password = post_data('enc_password')
+    user = USERS.objects.filter(account=account).first()
+    old_password = user.password
+    user.password = int_to_str(str_to_int(token) ^ str_to_int(old_password) ^ enc_password)
+    # 重置token
+    user.token = random_str(40)
+    user.save()
+    return 'Successfully modify your password, please login again'

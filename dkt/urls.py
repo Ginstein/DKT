@@ -22,7 +22,7 @@ urlpatterns = [
     # login 登录界面
     path('login/get_access_key/', GetAccessKey),
     path('login/get_token/', GetToken),
-
+    path('login/modify_password/', ModifyPassword),
     # live 界面
     path('live/polling_time/', PollingTime),
 ]

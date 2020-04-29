@@ -26,3 +26,20 @@ def md5_hash(_str):
     md = hashlib.md5()
     md.update(_str.encode('utf-8'))
     return md.hexdigest()
+
+
+def int_to_str(num):
+    """
+    十进制转十六进制
+    :param num:
+    :return:
+    """
+    return bytes().fromhex(str(hex(num))[2:]).decode()
+
+
+def str_to_int(_str):
+    """
+    字符串转数字
+    :param _str:
+    """
+    return int(_str.encode().hex(), 16)
