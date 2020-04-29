@@ -10,16 +10,17 @@ from dkt.const import *
 from dkt.database.models import COURSE
 
 
-def polling_time(request):
+def polling_time(request, post_data):
     """
     轮询课程时间
+    :param post_data:
     :param request:
     """
-    course_id = request.GET.get('course_id')
-    s_account = request.GET.get('s_account')
-    t_account = request.GET.get('t_account')
-    tot_time = request.GET.get('tot_time', 60 * 40)
-    is_start = request.GET.get('is_start', False)
+    course_id = post_data.get('course_id')
+    s_account = post_data.get('s_account')
+    t_account = post_data.get('t_account')
+    tot_time = post_data.get('tot_time', 60 * 40)
+    is_start = post_data.get('is_start', False)
     if not (course_id and s_account):
         raise ValidationError('missing parameter')
     course = COURSE.objects.filter(course_id=course_id, s_account=s_account, t_account=t_account).first()

@@ -27,6 +27,7 @@ def GetToken(request, post_data):
 
 # live 界面
 # ==========================================
+@post_format
 @rest_view
-def PollingTime(request):
-    return polling_time(request)
+def PollingTime(request, post_data):
+    return polling_time(request, post_data)
