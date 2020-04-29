@@ -2,7 +2,7 @@
 """
 视图层url调用函数必须在这
 """
-from dkt.rest.decorators import rest_view, post_format
+from dkt.rest.decorators import *
 from dkt.service.live import *
 from dkt.service.login import *
 
@@ -27,7 +27,6 @@ def GetToken(request, post_data):
 
 # live 界面
 # ==========================================
-@post_format
 @rest_view
-def PollingTime(request, post_data):
-    return polling_time(request, post_data)
+def PollingTime(request):
+    return polling_time(request)
