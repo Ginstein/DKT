@@ -14,11 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from dkt.service.login import *
+from dkt.view import *
 
 urlpatterns = [
-    # login登录界面
-    path('login/ping/', ping),
-    path('login/get_access_key/', get_access_key),
-    path('login/get_token/', get_token),
+    # login 登录界面
+    path('login/ping/', Ping),
+    path('login/get_access_key/', GetAccessKey),
+    path('login/get_token/', GetToken),
 ]

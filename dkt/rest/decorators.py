@@ -3,8 +3,7 @@ import functools
 import json
 from django.http import HttpResponse
 
-SUCCESS = 'Success'
-FAILED = 'Failed'
+from dkt.const import *
 
 
 def rest_view(func):

@@ -4,11 +4,9 @@ import time
 from django.core.exceptions import ValidationError
 
 from dkt.database.models import USERS
-from dkt.rest.decorators import rest_view, post_format
 from dkt.service.common import random_str, md5_hash
 
 
-@rest_view
 def ping(request):
     """
     测试接口
@@ -17,7 +15,6 @@ def ping(request):
     return True
 
 
-@rest_view
 def get_access_key(request):
     """
 
@@ -35,8 +32,6 @@ def get_access_key(request):
     }
 
 
-@post_format
-@rest_view
 def get_token(request, post_data):
     """
     获取令牌

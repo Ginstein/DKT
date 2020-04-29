@@ -1,4 +1,7 @@
 # coding=utf-8
+"""
+自定义工具存放位置
+"""
 import hashlib
 import random
 import string
