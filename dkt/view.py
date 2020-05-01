@@ -5,6 +5,7 @@
 from dkt.rest.decorators import *
 from dkt.service.live import *
 from dkt.service.login import *
+from dkt.service.people import *
 
 
 # login 界面
@@ -34,3 +35,16 @@ def ModifyPassword(request, post_data):
 @rest_view
 def PollingTime(request):
     return polling_time(request)
+# people 界面
+# ==========================================
+@post_format
+@rest_view
+@permission_validation
+def GetUserInfo(request, post_data):
+    return get_user_info(request, post_data)
+
+@post_format
+@rest_view
+@permission_validation
+def SetUserInfo(request, post_data):
+    return set_user_info(request, post_data)

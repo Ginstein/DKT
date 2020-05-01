@@ -19,10 +19,13 @@ from dkt.view import *
 urlpatterns = [
     # 测试
     path('', Ping),
-    # login 登录界面
+    # login 界面
     path('login/get_access_key/', GetAccessKey),
     path('login/get_token/', GetToken),
     path('login/modify_password/', ModifyPassword),
     # live 界面
     path('live/polling_time/', PollingTime),
+    # people 界面
+    path('people/get_user_info/', GetUserInfo),
+    path('people/set_user_info/', SetUserInfo),
 ]
