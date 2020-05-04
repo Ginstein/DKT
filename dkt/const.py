@@ -10,6 +10,7 @@ class ObjectStatus(Enum):
     FAILED = u'Failed'
     PENDING = u'Pending'
     FINISH = u'Finish'
+    UNDEFINED = u'undefined'
 
 
 class ObjectColor(Enum):

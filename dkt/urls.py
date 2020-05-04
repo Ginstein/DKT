@@ -28,4 +28,7 @@ urlpatterns = [
     # people 界面
     path('people/get_user_info/', GetUserInfo),
     path('people/set_user_info/', SetUserInfo),
+    # main 界面
+    path('main/search_my_courses/', SearchMyCourses),
+    path('main/search_public_courses/', SearchPublicCourses),
 ]
