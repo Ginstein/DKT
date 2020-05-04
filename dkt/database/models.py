@@ -25,6 +25,7 @@ class COURSE(models.Model):
     course_id = models.CharField(max_length=64, default='')
     s_account = models.CharField(max_length=64, default='')
     t_account = models.CharField(max_length=64, default='')
+    category = models.CharField(max_length=64, default='default')
     status = models.CharField(max_length=64, default='')
     info = models.CharField(max_length=2048, default='')
     start_time = models.IntegerField(default=0)

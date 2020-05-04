@@ -1,6 +1,8 @@
 # coding=utf-8
 import json
 
+from django.core.exceptions import ValidationError
+
 from dkt.database.models import USERS
 from dkt.const import *
 
