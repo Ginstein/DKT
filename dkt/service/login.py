@@ -65,7 +65,7 @@ def modify_password(request, post_data):
     """
     account = post_data.get('account')
     token = post_data.get('token')
-    enc_password = post_data('enc_password')
+    enc_password = post_data.get('enc_password')
     user = USERS.objects.filter(account=account).first()
     old_password = user.password
     user.password = int_to_str(str_to_int(token) ^ str_to_int(old_password) ^ enc_password)
