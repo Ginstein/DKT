@@ -41,3 +41,9 @@ class Time(Enum):
     DAYS = 3
     INTERVAL = 1
 
+
+class UserRole(Enum):
+    TEACHER = 'teacher'
+    STUDENT = 'student'
+    PARENT = 'parent'
+    ADMIN = 'admin'

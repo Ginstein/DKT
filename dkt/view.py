@@ -81,3 +81,18 @@ def SearchPublicCourses(request):
 @permission_validation
 def GetSchedule(request, post_data):
     return get_schedule(request, post_data)
+
+
+@post_format
+@rest_view
+@permission_validation
+def PublishCourse(request, post_data):
+    return publish_course(request, post_data)
+
+
+@post_format
+@rest_view
+@permission_validation
+def CheckCourse(request, post_data):
+    return check_course(request, post_data)
+

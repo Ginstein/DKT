@@ -29,8 +29,10 @@ urlpatterns = [
     # people 界面
     path('people/get_user_info/', GetUserInfo),
     path('people/set_user_info/', SetUserInfo),
+    path('people/get_schedule/', GetSchedule),
     # main 界面
     path('main/search_my_courses/', SearchMyCourses),
     path('main/search_public_courses/', SearchPublicCourses),
-    path('people/get_schedule/', GetSchedule),
+    path('main/publish_course/', PublishCourse),
+    path('main/check_course/', CheckCourse)
 ]
