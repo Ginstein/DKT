@@ -11,6 +11,7 @@ class USERS(models.Model):
 
     account = models.CharField(max_length=64, default='')
     password = models.CharField(max_length=64, default='')
+    role = models.CharField(max_length=64, default='')
     access_key = models.CharField(max_length=128, default='')
     token = models.CharField(max_length=128, default='')
     info = models.CharField(max_length=2048, default='')

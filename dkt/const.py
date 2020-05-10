@@ -23,3 +23,9 @@ class CourseStatus(Enum):
     FINISH = u'Finish'
     NOT_START = u'NotStart'
     ONGOING = u'Ongoing'
+
+class UserRole(Enum):
+    TEACHER = 'teacher'
+    STUDENT = 'student'
+    PARENT = 'parent'
+    ADMIN = 'admin'

@@ -67,3 +67,17 @@ def SearchMyCourses(request):
 @rest_view
 def SearchPublicCourses(request):
     return search_public_courses(request)
+
+
+@post_format
+@rest_view
+@permission_validation
+def PublishCourse(request, post_data):
+    return publish_course(request, post_data)
+
+
+@post_format
+@rest_view
+@permission_validation
+def CheckCourse(request, post_data):
+    return check_course(request, post_data)
