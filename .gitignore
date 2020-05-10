@@ -1,0 +1,6 @@
+# vim
+*.un~
+*.swp
+
+# cache
+__pycache__/

@@ -1,6 +1,6 @@
 # coding=utf-8
 from django.db import models
-
+import time
 
 # Create your models here.
 
@@ -16,6 +16,7 @@ class USERS(models.Model):
     token = models.CharField(max_length=128, default='')
     info = models.CharField(max_length=2048, default='')
     _t = models.IntegerField(default=0)
+    role = models.CharField(max_length=16, default='student')
 
 
 class COURSE(models.Model):
@@ -31,3 +32,15 @@ class COURSE(models.Model):
     info = models.CharField(max_length=2048, default='')
     start_time = models.IntegerField(default=0)
     finish_time = models.IntegerField(default=0)
+
+class MESSAGES(models.Model):
+    class Meta:
+        verbose_name = '消息表'
+        db_table = 'dkt_messages'
+        ordering = ('-_t', )
+
+    course_id = models.CharField(max_length=64, default='')
+    sender = models.CharField(max_length=64, default='')
+    receiver = models.CharField(max_length=64, default='')
+    _t = models.IntegerField(default=int(time.time()))
+    msg = models.CharField(max_length=2048, default='')

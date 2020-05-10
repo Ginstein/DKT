@@ -34,5 +34,8 @@ urlpatterns = [
     path('main/search_my_courses/', SearchMyCourses),
     path('main/search_public_courses/', SearchPublicCourses),
     path('main/publish_course/', PublishCourse),
-    path('main/check_course/', CheckCourse)
+    path('main/check_course/', CheckCourse),
+    # message 界面
+    path('message/get_msg/', GetMessage),
+    path('message/pub_msg/', PubMessage),
 ]

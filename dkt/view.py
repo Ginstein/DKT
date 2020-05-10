@@ -7,6 +7,7 @@ from dkt.service.live import *
 from dkt.service.login import *
 from dkt.service.main import *
 from dkt.service.people import *
+from dkt.service.message import *
 
 
 # login 界面
@@ -96,3 +97,18 @@ def PublishCourse(request, post_data):
 def CheckCourse(request, post_data):
     return check_course(request, post_data)
 
+
+# message 界面
+# ==========================================
+@post_format
+@rest_view
+@permission_validation
+def GetMessage(request, post_data):
+    return get_message(request, post_data)
+
+
+@post_format
+@rest_view
+@permission_validation
+def PubMessage(request, post_data):
+    return pub_message(request, post_data)
