@@ -47,3 +47,8 @@ class UserRole(Enum):
     STUDENT = 'student'
     PARENT = 'parent'
     ADMIN = 'admin'
+
+
+class MessageObjects(Enum):
+    PUB = u'pub'
+    ALL = u'all'
