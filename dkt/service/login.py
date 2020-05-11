@@ -34,7 +34,7 @@ def get_access_key(request):
 
 def get_token(request, post_data):
     """
-    获取令牌
+    获取令牌。
     :param request:
     :param post_data:
     :return:

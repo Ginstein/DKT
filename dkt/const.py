@@ -23,3 +23,21 @@ class CourseStatus(Enum):
     FINISH = u'Finish'
     NOT_START = u'NotStart'
     ONGOING = u'Ongoing'
+
+
+class FileSuffix(Enum):
+    PDF = u'.pdf'
+    PPT = u'.ppt'
+    PPTX = u'.pptx'
+    JPG = u'.jpg'
+    PNG = u'.png'
+    PICTURE = u'.jpg'  # linux
+    # PICTURE = u' .jpg'  # windows
+
+
+class Time(Enum):
+    ADay = 86400
+    JETLAG = 28800
+    DAYS = 3
+    INTERVAL = 1
+
