@@ -78,6 +78,6 @@ def SearchPublicCourses(request):
 
 @post_format
 @rest_view
-# @permission_validation
+@permission_validation
 def GetSchedule(request, post_data):
     return get_schedule(request, post_data)

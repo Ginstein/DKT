@@ -74,7 +74,7 @@ def ppt_to_jpg(request, post_data):
         os.system("mkdir " + file_name)
         in_path = os.path.join(ppt_path, file_name + FileSuffix.PDF.value)
         out_path = os.path.join(ppt_path, os.path.join(file_name, FileSuffix.PICTURE.value))
-        # TODO 把pdf转成图片放到文件夹下
+        # 把pdf转成图片放到文件夹下
         os.system("convert -resize 1200x -density 120 -quality 100 " + in_path + ' ' + out_path)  # linux
         # os.system('magick "' + in_path + '" "' + out_path + '"')  # windows
     except Exception as e:

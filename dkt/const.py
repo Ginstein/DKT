@@ -36,4 +36,8 @@ class FileSuffix(Enum):
 
 
 class Time(Enum):
-    aDay = 86400
+    ADay = 86400
+    JETLAG = 28800
+    DAYS = 3
+    INTERVAL = 1
+

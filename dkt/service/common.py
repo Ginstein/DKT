@@ -5,6 +5,9 @@
 import hashlib
 import random
 import string
+import time
+
+from dkt.const import *
 
 
 def random_str(num):
@@ -43,3 +46,18 @@ def str_to_int(_str):
     :param _str:
     """
     return int(_str.encode().hex(), 16)
+
+
+def get_timetable(time_table):
+    """
+    得到时间
+    :param time_table: 时间表
+    :return:
+    """
+    # 得到今天日期时间戳
+    _t = int(time.time())
+    # today_t = int(time.mktime(time.strptime(time.strftime("%Y-%m-%d", time.localtime(time.time())), "%Y-%m-%d")))
+    today_t = _t - (_t + Time.JETLAG.value) % Time.ADay.value
+    for i in range(Time.DAYS.value):
+        time_table.append(today_t + Time.ADay.value * Time.INTERVAL.value * i)
+    time_table.append(today_t + Time.ADay.value * Time.INTERVAL.value * Time.DAYS.value)
