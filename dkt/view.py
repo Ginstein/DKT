@@ -98,6 +98,27 @@ def CheckCourse(request, post_data):
     return check_course(request, post_data)
 
 
+@post_format
+@rest_view
+@permission_validation
+def PublishHomework(request, post_data):
+    return publish_homework(request, post_data)
+
+
+@post_format
+@rest_view
+@permission_validation
+def GetHomework(request, post_data):
+    return get_homework(request, post_data)
+
+
+@post_format
+@rest_view
+@permission_validation
+def CorrectHomework(request, post_data):
+    return correct_homework(request, post_data)
+
+
 # message 界面
 # ==========================================
 @post_format

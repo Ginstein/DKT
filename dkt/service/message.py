@@ -4,10 +4,11 @@
 """
 
 import time
-from django.db.models import Q
 
-from dkt.database.models import MESSAGES, USERS, COURSE
-from dkt.const import ObjectStatus, MessageObjects
+from dkt.database.models import MESSAGES
+from dkt.const import ObjectStatus, MessageObjects, UserRole
+from dkt.service.utils import get_user_role
+
 
 def get_message(request, post_data):
     """
@@ -31,6 +32,7 @@ def get_message(request, post_data):
         res.append({'_t': msg._t, 'msg': msg.msg, 'sender': msg.sender})
     return res
 
+
 def pub_message(request, post_data):
     """
     老师发布消息
@@ -42,13 +44,6 @@ def pub_message(request, post_data):
     sender = post_data.get('account')
     receiver = post_data.get('receiver')
     msg = post_data.get('msg')
-
-#      if not COURSE.objects.filter(Q(course_id=course_id), Q(t_account=sender)|Q(s_account=sender)):
-        #  return "Course and sender can't match!"
-    #  if receiver != 'all' and not COURSE.objects.filter(Q(course_id=course_id), Q(t_account=receiver)|Q(s_account=receiver)):
-        #  return "Course and receiver can't match!"
-    #  if receiver == 'all' and USERS.objects.get(account=sender).role != 'teacher':
-        #  return "Can't send to all, because you are not a teacher!"
 
     MESSAGES.objects.create(course_id=course_id, sender=sender, receiver=receiver, _t=int(time.time()), msg=msg)
 

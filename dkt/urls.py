@@ -20,22 +20,25 @@ urlpatterns = [
     # 测试
     path('', Ping),
     # login 界面
-    path('login/get_access_key/', GetAccessKey),
-    path('login/get_token/', GetToken),
-    path('login/modify_password/', ModifyPassword),
+    path('api/dkt/login/get_access_key/', GetAccessKey),
+    path('api/dkt/login/get_token/', GetToken),
+    path('api/dkt/login/modify_password/', ModifyPassword),
     # live 界面
-    path('live/polling_time/', PollingTime),
-    path('live/ppt_to_jpg/', PptToJpg),
+    path('api/dkt/live/polling_time/', PollingTime),
+    path('api/dkt/live/ppt_to_jpg/', PptToJpg),
     # people 界面
-    path('people/get_user_info/', GetUserInfo),
-    path('people/set_user_info/', SetUserInfo),
-    path('people/get_schedule/', GetSchedule),
+    path('api/dkt/people/get_user_info/', GetUserInfo),
+    path('api/dkt/people/set_user_info/', SetUserInfo),
+    path('api/dkt/people/get_schedule/', GetSchedule),
     # main 界面
-    path('main/search_my_courses/', SearchMyCourses),
-    path('main/search_public_courses/', SearchPublicCourses),
-    path('main/publish_course/', PublishCourse),
-    path('main/check_course/', CheckCourse),
+    path('api/dkt/main/search_my_courses/', SearchMyCourses),
+    path('api/dkt/main/search_public_courses/', SearchPublicCourses),
+    path('api/dkt/main/publish_course/', PublishCourse),
+    path('api/dkt/main/check_course/', CheckCourse),
+    path('api/dkt/main/publish_homework/', PublishHomework),
+    path('api/dkt/main/get_homework/', GetHomework),
+    path('api/dkt/main/correct_homework/', CorrectHomework),
     # message 界面
-    path('message/get_msg/', GetMessage),
-    path('message/pub_msg/', PubMessage),
+    path('api/dkt/message/get_msg/', GetMessage),
+    path('api/dkt/message/pub_msg/', PubMessage),
 ]

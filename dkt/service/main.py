@@ -1,6 +1,8 @@
 # coding=utf-8
 import json
+import time
 
+from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.forms import model_to_dict
 
@@ -16,7 +18,7 @@ def search_my_courses(request):
     :param request:
     """
     account = request.GET.get('account')
-    field = request.GET.get('field')
+    field = request.GET.get('field', '{')
     courses = [course.info for course in COURSE.objects.filter(s_account=account, info__contains=field)]
     return courses
 
@@ -70,3 +72,81 @@ def check_course(request, post_data):
         status = COURSE.objects.select_for_update().filter(
             query and Q(t_account=ObjectStatus.UNDEFINED.value)).update(t_account=account)
     return ObjectStatus.SUCCESS.value if status else ObjectStatus.FAILED.value
+
+
+def publish_homework(request, post_data):
+    """
+    老师发布作业
+    :param request:
+    :param post_data:
+    """
+    account = post_data.get('account')
+    course_id = post_data.get('course_id')
+    tasks = post_data.get('task')
+    role = get_user_role(account)
+    if role != UserRole.TEACHER.value:
+        raise ValidationError('only teacher can publish homework')
+    course = COURSE.objects.filter(course_id=course_id).first()
+    if not course:
+        raise ValidationError('course id does not exist')
+    homework = json.loads(course.homework)
+    if not homework.get('task'):
+        # 初始化作业表
+        homework['task'] = []
+        homework['status'] = CourseStatus.NOT_START.value
+        homework['start_time'] = post_data.get('start_time', int(time.time()))
+        homework['finish_time'] = post_data.get('finish_time', int(time.time()))
+    homework['task'] += tasks
+    course.homework = json.dumps(homework)
+    course.save()
+    return ObjectStatus.SUCCESS.value
+
+
+def get_homework(request, post_data):
+    """
+    老师或学生获取作业
+    :param request:
+    :param post_data:
+    """
+    account = post_data.get('account')
+    course_id = post_data.get('course_id')
+    role = get_user_role(account)
+    course = COURSE.objects.filter(course_id=course_id).first()
+    if not course:
+        raise ValidationError('course id does not exist')
+    homework = json.loads(course.homework)
+    if role == UserRole.STUDENT.value and homework['start_time'] > int(time.time()):
+        raise ValidationError('the homework has not started')
+    if homework['status'] == CourseStatus.NOT_START.value:
+        homework['status'] = CourseStatus.ONGOING.value
+    if homework['finish_time'] <= int(time.time()):
+        homework['status'] = CourseStatus.FINISH.value
+    homework = json.dumps(homework)
+    if course.homework != homework:
+        course.homework = homework
+        course.save()
+    return homework
+
+
+def correct_homework(request, post_data):
+    """
+    老师批改作业
+    :param request:
+    :param post_data:
+    """
+    account = post_data.get('account')
+    course_id = post_data.get('course_id')
+    score = post_data.get('score')
+    role = get_user_role(account)
+    if role != UserRole.TEACHER.value:
+        raise ValidationError('only teacher can correct homework')
+    course = COURSE.objects.filter(course_id=course_id).first()
+    if not course:
+        raise ValidationError('course id does not exist')
+    homework = json.loads(course.homework)
+    if homework['finish_time'] >= int(time.time()):
+        raise ValidationError('the homework is not over yet')
+    homework['score'] = score
+    course.homework = json.dumps(homework)
+    course.save()
+    return ObjectStatus.SUCCESS.value

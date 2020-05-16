@@ -30,6 +30,7 @@ class COURSE(models.Model):
     category = models.CharField(max_length=64, default='default')
     status = models.CharField(max_length=64, default='')
     info = models.CharField(max_length=2048, default='')
+    homework = models.TextField()
     start_time = models.IntegerField(default=0)
     finish_time = models.IntegerField(default=0)
 
