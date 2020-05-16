@@ -16,7 +16,7 @@ class USERS(models.Model):
     token = models.CharField(max_length=128, default='')
     info = models.CharField(max_length=2048, default='')
     _t = models.IntegerField(default=0)
-    role = models.IntegerField()
+    role = models.CharField(max_length=16, default='student')
 
 class COURSE(models.Model):
     class Meta:

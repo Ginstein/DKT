@@ -48,6 +48,7 @@ class MessageObjects(Enum):
     GET_MSG_NUM = 20
 
 class UserRole(Enum):
-    ADMINISTRATOR = 0
-    TEACHER = 1
-    STUDENT = 2
+    TEACHER = 'teacher'
+    STUDENT = 'student'
+    PARENT = 'parent'
+    ADMIN = 'admin'
