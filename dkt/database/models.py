@@ -16,8 +16,7 @@ class USERS(models.Model):
     token = models.CharField(max_length=128, default='')
     info = models.CharField(max_length=2048, default='')
     _t = models.IntegerField(default=0)
-    role = models.CharField(max_length=16, default='student')
-
+    role = models.IntegerField()
 
 class COURSE(models.Model):
     class Meta:
@@ -40,8 +39,8 @@ class MESSAGES(models.Model):
         db_table = 'dkt_messages'
         ordering = ('-_t', )
 
-    course_id = models.CharField(max_length=64, default='')
+    course_id = models.CharField(max_length=64, default='', null=True)
     sender = models.CharField(max_length=64, default='')
     receiver = models.CharField(max_length=64, default='')
     _t = models.IntegerField(default=int(time.time()))
-    msg = models.CharField(max_length=2048, default='')
+    msg = models.TextField()
