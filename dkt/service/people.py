@@ -38,7 +38,7 @@ def set_user_info(request, post_data):
 
 def get_schedule(request, post_data):
     """
-    得到近3天的课表
+    得到近DAYS天的课表
     :param request:
     :param post_data:
     """

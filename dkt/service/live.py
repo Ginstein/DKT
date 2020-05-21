@@ -11,6 +11,7 @@ from django.core.exceptions import ValidationError
 
 from dkt.const import *
 from dkt.database.models import COURSE
+from django.forms.models import model_to_dict
 
 
 def polling_time(request):
@@ -81,6 +82,7 @@ def ppt_to_jpg(request, post_data):
         logger.error('ppt to jpg error {}'.format(e))
         return ObjectStatus.FAILED.value
     return ObjectStatus.SUCCESS.value
+
 
 
 logger = logging.getLogger(__name__)

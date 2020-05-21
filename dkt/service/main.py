@@ -150,3 +150,24 @@ def correct_homework(request, post_data):
     course.homework = json.dumps(homework)
     course.save()
     return ObjectStatus.SUCCESS.value
+
+
+def course_evaluate(request, post_data):
+    """
+    课程评价
+    :param request:
+    :param post_data:
+    :return:
+    """
+    evaluation = post_data.get("evaluation")
+    grade = post_data.get("grade")
+    course_id = post_data.get("course_id")
+    course = COURSE.objects.filter(course_id=course_id).first()
+    if not course:
+        raise ValidationError('course does not exist')
+    info = json.loads(course.info)
+    info['evaluation'] = evaluation
+    info['grade'] = grade
+    course.info = json.dumps(info)
+    course.save()
+    return ObjectStatus.SUCCESS.value

@@ -44,7 +44,7 @@ def PollingTime(request):
 
 @post_format
 @rest_view
-# @permission_validation
+@permission_validation
 def PptToJpg(request, post_data):
     return ppt_to_jpg(request, post_data)
 
@@ -117,6 +117,13 @@ def GetHomework(request, post_data):
 @permission_validation
 def CorrectHomework(request, post_data):
     return correct_homework(request, post_data)
+
+
+@post_format
+@rest_view
+@permission_validation
+def CourseEvaluate(request, post_data):
+    return course_evaluate(request, post_data)
 
 
 # message 界面
