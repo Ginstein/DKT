@@ -19,7 +19,10 @@ def search_my_courses(request):
     """
     account = request.GET.get('account')
     field = request.GET.get('field', '{')
-    courses = [course.info for course in COURSE.objects.filter(s_account=account, info__contains=field)]
+    courses = [{
+        'info': course.info,
+        'course_id': course.course_id
+    } for course in COURSE.objects.filter(s_account=account, info__contains=field)]
     return courses
 
 
