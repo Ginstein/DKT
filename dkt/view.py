@@ -49,6 +49,20 @@ def PptToJpg(request, post_data):
     return ppt_to_jpg(request, post_data)
 
 
+@post_format
+@rest_view
+@permission_validation
+def CourseCheckIn(request, post_data):
+    return course_check_in(request, post_data)
+
+
+@post_format
+@rest_view
+@permission_validation
+def GetCourseRoom(request, post_data):
+    return get_course_room(request, post_data)
+
+
 # people 界面
 # ==========================================
 @post_format

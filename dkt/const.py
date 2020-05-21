@@ -41,14 +41,21 @@ class Time(Enum):
     DAYS = 3
     INTERVAL = 1
 
+
 class MessageObjects(Enum):
     RECEIVER_ALL = u'all'
     COURSE = u'course'
     SYSTEM = u'system'
     GET_MSG_NUM = 20
 
+
 class UserRole(Enum):
     TEACHER = 'teacher'
     STUDENT = 'student'
     PARENT = 'parent'
     ADMIN = 'admin'
+
+
+class RoomRole(Enum):
+    HOST = 'host'
+    GUEST = 'guest'

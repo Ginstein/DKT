@@ -13,6 +13,8 @@ from dkt.const import *
 from dkt.database.models import COURSE
 from django.forms.models import model_to_dict
 
+from dkt.service.utils import get_user_role, get_room_url
+
 
 def polling_time(request):
     """
@@ -83,6 +85,35 @@ def ppt_to_jpg(request, post_data):
         return ObjectStatus.FAILED.value
     return ObjectStatus.SUCCESS.value
 
+
+def get_course_room(request, post_data):
+    """
+    获取房间链接
+    :param request:
+    :param post_data:
+    """
+    account = post_data.get('account')
+    course_id = post_data.get('course_id')
+    role = get_user_role(account)
+    room_url = get_room_url(course_id, role)
+    if role == UserRole.STUDENT.value:
+        room_url.replace(RoomRole.HOST.value, RoomRole.GUEST.value)
+    index = room_url[:-1].rfind('/') + 1
+    return room_url[:index] + account + '/'
+
+
+def course_check_in(request, post_data):
+    """
+    live界面用户鉴权
+    :param request:
+    :param post_data:
+    """
+    account = post_data.get('account')
+    course_id = post_data.get('course_id')
+    course = COURSE.objects.filter(course_id=course_id).first()
+    if course and account in [course.s_account, course.t_account]:
+        return ObjectStatus.SUCCESS.value
+    return ObjectStatus.FAILED.value
 
 
 logger = logging.getLogger(__name__)
