@@ -26,8 +26,6 @@ urlpatterns = [
     # live 界面
     path('api/dkt/live/polling_time/', PollingTime),
     path('api/dkt/live/ppt_to_jpg/', PptToJpg),
-    path('api/dkt/live/course_check_in/', CourseCheckIn),
-    path('api/dkt/live/get_room_url/', GetCourseRoom),
     # people 界面
     path('api/dkt/people/get_user_info/', GetUserInfo),
     path('api/dkt/people/set_user_info/', SetUserInfo),
@@ -41,6 +39,9 @@ urlpatterns = [
     path('api/dkt/main/get_homework/', GetHomework),
     path('api/dkt/main/correct_homework/', CorrectHomework),
     path('api/dkt/main/course_evaluate/', CourseEvaluate),
+    path('api/dkt/main/apply_alter/', ApplyAlter),
+    path('api/dkt/main/agree_alter/', AgreeAlter),
+    path('api/dkt/main/search_pending/', SearchPending),
     # message 界面
     path('api/dkt/message/get_msg/', GetMessage),
     path('api/dkt/message/pub_msg/', PubMessage),

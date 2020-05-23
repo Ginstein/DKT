@@ -8,6 +8,7 @@ from django.forms import model_to_dict
 
 from dkt.const import ObjectStatus, CourseStatus, UserRole
 from dkt.database.models import COURSE
+from dkt.database.models import PENDING
 from dkt.service.common import random_str
 from dkt.service.utils import get_user_role
 
@@ -19,10 +20,7 @@ def search_my_courses(request):
     """
     account = request.GET.get('account')
     field = request.GET.get('field', '{')
-    courses = [{
-        'info': course.info,
-        'course_id': course.course_id
-    } for course in COURSE.objects.filter(s_account=account, info__contains=field)]
+    courses = [course.info for course in COURSE.objects.filter(s_account=account, info__contains=field)]
     return courses
 
 
@@ -174,3 +172,57 @@ def course_evaluate(request, post_data):
     course.info = json.dumps(info)
     course.save()
     return ObjectStatus.SUCCESS.value
+
+
+def apply_alter(request, post_data):
+    """
+    申请课程（建立或修改）
+    :param request:
+    :param post_data:
+    :return:
+    """
+    account = post_data.get("account")
+    course_id = post_data.get("course_id")
+    info = post_data.get("info")
+
+    course = COURSE.objects.filter(course_id=course_id).first()
+    if not course:
+        raise ValidationError('course does not exist')
+
+    if account == course.t_account:
+        another = course.s_account
+    else:
+        another = course.t_account
+
+    pending = PENDING.objects.creat(course_id=course_id, applicant_id=account,
+                                    another_id=another, _t=time.time(), info=json.dumps(info))
+    pending.save()
+    return ObjectStatus.SUCCESS.value
+
+
+def search_pending(request, post_data):
+    """
+    查找需要自己同意的请求
+    :param request:
+    :param post_data:
+    :return:
+    """
+    account = post_data.get("account")
+    obj = PENDING.objects.filter(another_id=account, another_op='').aggregate('course_id').first()
+    return obj
+
+
+def agree_alter(request, post_data):
+    """
+    同意课程操作
+    :param request:
+    :param post_data:
+    :return:
+    """
+    course_id = post_data.get("course_id")
+    opinion = post_data.get("opinion")
+    course = PENDING.objects.filter(course_id=course_id).first()
+    course.another_op = opinion
+    course.save()
+    return ObjectStatus.SUCCESS.value
+
