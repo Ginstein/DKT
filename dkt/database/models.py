@@ -53,7 +53,6 @@ class PENDING(models.Model):
     class Meta:
         verbose_name = '申请表'
         db_table = 'dkt_pending'
-        ordering = ('-_t', )
 
     course_id = models.CharField(max_length=64, default='')
     applicant_id = models.CharField(max_length=64, default='')

@@ -194,8 +194,8 @@ def apply_alter(request, post_data):
     else:
         another = course.t_account
 
-    pending = PENDING.objects.creat(course_id=course_id, applicant_id=account,
-                                    another_id=another, _t=time.time(), info=json.dumps(info))
+    pending = PENDING.objects.create(course_id=course_id, applicant_id=account,
+                                     another_id=another, _t=time.time(), info=json.dumps(info))
     pending.save()
     return ObjectStatus.SUCCESS.value
 
@@ -207,9 +207,13 @@ def search_pending(request, post_data):
     :param post_data:
     :return:
     """
+    re = []
     account = post_data.get("account")
-    obj = PENDING.objects.filter(another_id=account, another_op='').aggregate('course_id').first()
-    return obj
+    obj = PENDING.objects.filter(another_id=account, another_op='')
+    for ob in obj:
+        dic = {"course_id": ob.course_id, "info": ob.info, "applicant": ob.applicant_id}
+        re.append(dic)
+    return re
 
 
 def agree_alter(request, post_data):
@@ -221,8 +225,10 @@ def agree_alter(request, post_data):
     """
     course_id = post_data.get("course_id")
     opinion = post_data.get("opinion")
-    course = PENDING.objects.filter(course_id=course_id).first()
+    account = post_data.get("account")
+    course = PENDING.objects.filter(course_id=course_id).order_by("-_t").first()
+    if account != course.another_id:
+        raise ValidationError("error account")
     course.another_op = opinion
     course.save()
     return ObjectStatus.SUCCESS.value
-
