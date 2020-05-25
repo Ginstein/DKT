@@ -135,11 +135,16 @@ def CorrectHomework(request, post_data):
 
 @post_format
 @rest_view
-@permission_validation
+# @permission_validation
 def CourseEvaluate(request, post_data):
     return course_evaluate(request, post_data)
 
 
+@post_format
+@rest_view
+# @permission_validation
+def GetEvaluation(request):
+    return get_evaluation(request)
 # message 界面
 # ==========================================
 @post_format
