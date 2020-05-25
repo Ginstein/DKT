@@ -171,3 +171,21 @@ def course_evaluate(request, post_data):
     course.info = json.dumps(info)
     course.save()
     return ObjectStatus.SUCCESS.value
+
+
+def get_evaluation(request):
+    """
+    查看课程评价
+    :param request:
+    :return:
+    """
+    dic = {}
+    course_id = request.GET.get("course_id")
+    course = COURSE.objects.filter(course_id=course_id)
+    if not course:
+        raise ValidationError('course does not exist')
+    info = json.loads(course.info)
+    dic['evaluation'] = info['evaluation']
+    dic['grade'] = info['grade']
+    # dic = {'evaluation': info['evaluation'], 'grade': info['grade']}
+    return dic

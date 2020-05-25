@@ -39,6 +39,7 @@ urlpatterns = [
     path('api/dkt/main/get_homework/', GetHomework),
     path('api/dkt/main/correct_homework/', CorrectHomework),
     path('api/dkt/main/course_evaluate/', CourseEvaluate),
+    path('api/dkt/main/get_evaluation/', GetEvaluation),
     # message 界面
     path('api/dkt/message/get_msg/', GetMessage),
     path('api/dkt/message/pub_msg/', PubMessage),
