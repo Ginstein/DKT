@@ -49,20 +49,6 @@ def PptToJpg(request, post_data):
     return ppt_to_jpg(request, post_data)
 
 
-@post_format
-@rest_view
-@permission_validation
-def CourseCheckIn(request, post_data):
-    return course_check_in(request, post_data)
-
-
-@post_format
-@rest_view
-@permission_validation
-def GetCourseRoom(request, post_data):
-    return get_course_room(request, post_data)
-
-
 # people 界面
 # ==========================================
 @post_format
@@ -143,8 +129,27 @@ def CourseEvaluate(request, post_data):
 @post_format
 @rest_view
 # @permission_validation
+
 def GetEvaluation(request):
     return get_evaluation(request)
+
+def ApplyAlter(request, post_data):
+    return apply_alter(request, post_data)
+
+
+@post_format
+@rest_view
+# @permission_validation
+def AgreeAlter(request, post_data):
+    return agree_alter(request, post_data)
+
+
+@post_format
+@rest_view
+# @permission_validation
+def SearchPending(request, post_data):
+    return search_pending(request, post_data)
+
 # message 界面
 # ==========================================
 @post_format

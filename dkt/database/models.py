@@ -4,6 +4,7 @@ import time
 
 # Create your models here.
 
+
 class USERS(models.Model):
     class Meta:
         verbose_name = '用户数据表'
@@ -18,6 +19,7 @@ class USERS(models.Model):
     _t = models.IntegerField(default=0)
     role = models.CharField(max_length=16, default='student')
 
+
 class COURSE(models.Model):
     class Meta:
         verbose_name = '课程表'
@@ -29,10 +31,10 @@ class COURSE(models.Model):
     category = models.CharField(max_length=64, default='default')
     status = models.CharField(max_length=64, default='')
     info = models.CharField(max_length=2048, default='')
-    room_url = models.CharField(max_length=256, default='')
-    homework = models.TextField()
+    homework = models.TextField(default='')
     start_time = models.IntegerField(default=0)
     finish_time = models.IntegerField(default=0)
+
 
 class MESSAGES(models.Model):
     class Meta:
@@ -45,3 +47,17 @@ class MESSAGES(models.Model):
     receiver = models.CharField(max_length=64, default='')
     _t = models.IntegerField(default=int(time.time()))
     msg = models.TextField()
+
+
+class PENDING(models.Model):
+    class Meta:
+        verbose_name = '申请表'
+        db_table = 'dkt_pending'
+
+    course_id = models.CharField(max_length=64, default='')
+    applicant_id = models.CharField(max_length=64, default='')
+    another_id = models.CharField(max_length=64, default='')
+    another_op = models.CharField(max_length=8, default='')
+    admin_op = models.CharField(max_length=8, default='')
+    info = models.CharField(max_length=2048, default='')
+    _t = models.IntegerField(default=int(time.time()))
