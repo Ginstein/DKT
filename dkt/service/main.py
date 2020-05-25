@@ -179,13 +179,10 @@ def get_evaluation(request):
     :param request:
     :return:
     """
-    dic = {}
     course_id = request.GET.get("course_id")
     course = COURSE.objects.filter(course_id=course_id)
     if not course:
         raise ValidationError('course does not exist')
     info = json.loads(course.info)
-    dic['evaluation'] = info['evaluation']
-    dic['grade'] = info['grade']
-    # dic = {'evaluation': info['evaluation'], 'grade': info['grade']}
+    dic = {'evaluation': info['evaluation'], 'grade': info['grade']}
     return dic
