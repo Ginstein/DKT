@@ -121,32 +121,33 @@ def CorrectHomework(request, post_data):
 
 @post_format
 @rest_view
-# @permission_validation
+@permission_validation
 def CourseEvaluate(request, post_data):
     return course_evaluate(request, post_data)
 
 
-@post_format
 @rest_view
-# @permission_validation
-
 def GetEvaluation(request):
     return get_evaluation(request)
 
+
+@post_format
+@rest_view
+@permission_validation
 def ApplyAlter(request, post_data):
     return apply_alter(request, post_data)
 
 
 @post_format
 @rest_view
-# @permission_validation
+@permission_validation
 def AgreeAlter(request, post_data):
     return agree_alter(request, post_data)
 
 
 @post_format
 @rest_view
-# @permission_validation
+@permission_validation
 def SearchPending(request, post_data):
     return search_pending(request, post_data)
 
