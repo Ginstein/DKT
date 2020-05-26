@@ -206,8 +206,11 @@ def apply_alter(request, post_data):
 
     if account == course.t_account:
         another = course.s_account
-    else:
+
+    elif account == course.s_account:
         another = course.t_account
+    else:
+        raise ValidationError('error account')
 
     pending = PENDING.objects.create(course_id=course_id, applicant_id=account,
                                      another_id=another, _t=time.time(), info=json.dumps(info))
@@ -217,16 +220,26 @@ def apply_alter(request, post_data):
 
 def search_pending(request, post_data):
     """
-    查找需要自己同意的请求
+    查找和自己有关的请求
     :param request:
     :param post_data:
     :return:
     """
     re = []
     account = post_data.get("account")
-    obj = PENDING.objects.filter(another_id=account, another_op='')
-    for ob in obj:
+    obj = PENDING.objects.filter(Q(another_id=account) | Q(applicant_id=account))
+    obj1 = obj.filter(another_id=account, another_op='').order_by("-_t")
+    re.append("need my opinion")
+    for ob in obj1:
         dic = {"course_id": ob.course_id, "info": ob.info, "applicant": ob.applicant_id}
+        re.append(dic)
+    re.append("my pending")
+    obj2 = obj.filter(applicant_id=account).order_by("-_t")
+    for ob in obj2:
+        if get_user_role(ob.another_id) == UserRole.STUDENT.value:
+            dic = {"course_id": ob.course_id, "student_op": ob.another_op, "admin_op": ob.admin_op}
+        else:
+            dic = {"course_id": ob.course_id, "teacher_op": ob.another_op, "admin_op": ob.admin_op}
         re.append(dic)
     return re
 

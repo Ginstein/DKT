@@ -34,6 +34,8 @@ class COURSE(models.Model):
     homework = models.TextField(default='')
     start_time = models.IntegerField(default=0)
     finish_time = models.IntegerField(default=0)
+    total_periods = models.IntegerField(default=0)
+    passed_periods = models.IntegerField(default=0)
 
 
 class MESSAGES(models.Model):
