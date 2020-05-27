@@ -47,5 +47,5 @@ urlpatterns = [
     path('api/dkt/message/get_msg/', GetMessage),
     path('api/dkt/message/pub_msg/', PubMessage),
     # shopping 界面
-    path('api/dkt/shopping/in_trolley', InTrolley),
+    path('api/dkt/shopping/in_trolley/', InTrolley),
 ]

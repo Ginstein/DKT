@@ -2,6 +2,7 @@
 """
 购买课程相关业务
 """
+import json
 
 from django.core.exceptions import ValidationError
 from dkt.database.models import USERS
@@ -26,7 +27,17 @@ def in_trolley(request, post_data):
     if not user:
         raise ValidationError("error account")
     trolley = user.trolley
-    dic = {"info": info, "category": category, "value": value*period}
-    trolley.append(dic)
+    if trolley:
+        trolley = json.loads(trolley)
+    else:
+        trolley = {}
+    tot_value = int(value) * int(period)
+    dic = {"info": info, "category": category, "tot_value": tot_value}
+    i = 0
+    for tro in trolley:
+        i += 1
+    d = "dic" + str(i)
+    trolley[d] = dic
+    user.trolley = json.dumps(trolley)
     user.save()
     return ObjectStatus.SUCCESS.value
