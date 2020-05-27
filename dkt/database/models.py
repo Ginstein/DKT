@@ -18,6 +18,8 @@ class USERS(models.Model):
     info = models.CharField(max_length=2048, default='')
     _t = models.IntegerField(default=0)
     role = models.CharField(max_length=16, default='student')
+    trolley = models.CharField(max_length=2048, default='')
+    checklist = models.CharField(max_length=2048, default='')
 
 
 class COURSE(models.Model):

@@ -8,6 +8,7 @@ from dkt.service.login import *
 from dkt.service.main import *
 from dkt.service.people import *
 from dkt.service.message import *
+from dkt.service.shopping import *
 
 
 # login 界面
@@ -151,6 +152,7 @@ def AgreeAlter(request, post_data):
 def SearchPending(request, post_data):
     return search_pending(request, post_data)
 
+
 # message 界面
 # ==========================================
 @post_format
@@ -165,3 +167,12 @@ def GetMessage(request, post_data):
 @permission_validation
 def PubMessage(request, post_data):
     return pub_message(request, post_data)
+
+
+# shopping 界面
+# ==========================================
+@post_format
+@rest_view
+# @permission_validation
+def InTrolley(request, post_data):
+    return in_trolley(request, post_data)
