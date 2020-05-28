@@ -176,3 +176,15 @@ def PubMessage(request, post_data):
 # @permission_validation
 def InTrolley(request, post_data):
     return in_trolley(request, post_data)
+
+
+@rest_view
+def ShowTrolley(request):
+    return show_trolley(request)
+
+
+@post_format
+@rest_view
+# @permission_validation
+def OutTrolley(request, post_data):
+    return out_trolley(request, post_data)

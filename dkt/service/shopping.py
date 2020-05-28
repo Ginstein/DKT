@@ -41,3 +41,49 @@ def in_trolley(request, post_data):
     user.trolley = json.dumps(trolley)
     user.save()
     return ObjectStatus.SUCCESS.value
+
+
+def show_trolley(request):
+    """
+    展示购物车
+    :param request:
+    :return:
+    """
+    account = request.GET.get("account")
+    user = USERS.objects.filter(account=account).first()
+    if not user:
+        raise ValidationError("error account")
+    trolley = user.trolley
+    if trolley:
+        trolley = json.loads(trolley)
+    return trolley
+
+
+def out_trolley(request, post_data):
+    """
+    删除购物车
+    :param request:
+    :param post_data:
+    :return:
+    """
+    account = post_data.get("account")
+    array = post_data.get("array")
+    user = USERS.objects.filter(account=account).first()
+    if not user:
+        raise ValidationError("error account")
+    trolley = user.trolley
+    if not trolley:
+        raise ValidationError("no trolley item")
+    trolley = json.loads(trolley)
+    for a in array:
+        d = "dic" + str(a)
+        trolley.pop(d)
+    i = 0
+    for dic in trolley:
+        d = "dic" + str(i)
+        if dic != d:
+            trolley[d] = trolley.pop(dic)
+        i += 1
+    user.trolley = json.dumps(trolley)
+    user.save()
+    return ObjectStatus.SUCCESS.value
