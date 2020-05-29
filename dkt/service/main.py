@@ -53,7 +53,7 @@ def get_introduction(request):
     if 'introduction' in info:
         return info['introduction']
     else:
-        return ObjectStatus.FAILED.value
+        raise ValidationError("has no introduction")
 
 
 def publish_course(request, post_data):
