@@ -43,6 +43,7 @@ urlpatterns = [
     path('api/dkt/main/apply_alter/', ApplyAlter),
     path('api/dkt/main/agree_alter/', AgreeAlter),
     path('api/dkt/main/search_pending/', SearchPending),
+    path('api/dkt/main/get_introduction/', GetIntroduction),
     # message 界面
     path('api/dkt/message/get_msg/', GetMessage),
     path('api/dkt/message/pub_msg/', PubMessage),

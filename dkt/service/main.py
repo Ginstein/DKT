@@ -39,6 +39,23 @@ def search_public_courses(request):
     return all_courses
 
 
+def get_introduction(request):
+    """
+    查询课程介绍
+    :param request:
+    :return:
+    """
+    course_id = request.GET.get("course_id")
+    course = COURSE.objects.filter(course_id=course_id).first()
+    if not course:
+        raise ValidationError("error course_id")
+    info = json.loads(course.info)
+    if 'introduction' in info:
+        return info['introduction']
+    else:
+        return ObjectStatus.FAILED.value
+
+
 def publish_course(request, post_data):
     """
     学生发布课程任务
@@ -181,12 +198,32 @@ def get_evaluation(request):
     :return:
     """
     course_id = request.GET.get("course_id")
-    course = COURSE.objects.filter(course_id=course_id).first()
-    if not course:
-        raise ValidationError('course does not exist')
-    info = json.loads(course.info)
-    dic = {'evaluation': info['evaluation'], 'grade': info['grade']}
-    return dic
+    t_id = request.GET.get("account")
+    result = []
+    if course_id:
+        course = COURSE.objects.filter(course_id=course_id).first()
+        if not course:
+            raise ValidationError('course does not exist')
+        info = json.loads(course.info)
+        if 'evaluation' in info:
+            dic = {'evaluation': info['evaluation'], 'grade': info['grade']}
+        result.append(dic)
+        return result
+    elif t_id:
+        courses = COURSE.objects.filter(t_account=t_id)
+        if not courses:
+            raise ValidationError('teacher does not exist')
+        for ob in courses:
+            info = ob.info
+            if info:
+                info = json.loads(info)
+            if 'evaluation' in info:
+                dic = {'evaluation': info['evaluation'], 'grade': info['grade'], 'account': ob.s_account,
+                       'period': ob.total_periods, 'title': info['title']}
+                result.append(dic)
+        return result
+    else:
+        raise ValidationError("lack right course_id or account")
 
 
 def apply_alter(request, post_data):

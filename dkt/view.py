@@ -85,6 +85,11 @@ def GetSchedule(request, post_data):
     return get_schedule(request, post_data)
 
 
+@rest_view
+def GetIntroduction(request):
+    return get_introduction(request)
+
+
 @post_format
 @rest_view
 @permission_validation
