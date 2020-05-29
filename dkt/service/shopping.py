@@ -77,7 +77,8 @@ def out_trolley(request, post_data):
     trolley = json.loads(trolley)
     for a in array:
         d = "dic" + str(a)
-        trolley.pop(d)
+        if d in trolley:
+            trolley.pop(d)
     i = 0
     for dic in trolley:
         d = "dic" + str(i)
@@ -87,3 +88,18 @@ def out_trolley(request, post_data):
     user.trolley = json.dumps(trolley)
     user.save()
     return ObjectStatus.SUCCESS.value
+
+
+def show_checklist(request, post_data):
+    """
+    显示购物清单
+    :param request:
+    :param post_data:
+    :return:
+    """
+    account = post_data.get("account")
+    user = USERS.objects.filter(account=account).first()
+    if not user:
+        raise ValidationError("error account")
+    checklist = user.checklist
+    return checklist
