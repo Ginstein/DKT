@@ -200,3 +200,10 @@ def OutTrolley(request, post_data):
 # @permission_validation
 def ShowChecklist(request, post_data):
     return show_checklist(request, post_data)
+
+
+@post_format
+@rest_view
+# @permission_validation
+def BuyTrolley(request, post_data):
+    return buy_trolley(request, post_data)

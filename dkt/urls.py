@@ -51,5 +51,6 @@ urlpatterns = [
     path('api/dkt/shopping/in_trolley/', InTrolley),
     path('api/dkt/shopping/show_trolley/', ShowTrolley),
     path('api/dkt/shopping/out_trolley/', OutTrolley),
+    path('api/dkt/shopping/buy_trolley/', BuyTrolley),
     path('api/dkt/shopping/show_checklist/', ShowChecklist),
 ]

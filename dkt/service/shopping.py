@@ -90,6 +90,30 @@ def out_trolley(request, post_data):
     return ObjectStatus.SUCCESS.value
 
 
+def buy_trolley(request, post_data):
+    """
+    预购买清单
+    :param request:
+    :param post_data:
+    :return:
+    """
+    account = post_data.get("account")
+    array = post_data.get("array")
+    user = USERS.objects.filter(account=account).first()
+    if not user:
+        raise ValidationError("error account")
+    trolley = json.loads(user.trolley)
+    _list = []
+    value = 0
+    for a in array:
+        d = "dic" + str(a)
+        if d in trolley:
+            tor = trolley[d]
+            value += tor['tot_value']
+            _list.append(tor)
+    return {'value': value, 'list': _list}
+
+
 def show_checklist(request, post_data):
     """
     显示购物清单
